@@ -23,7 +23,7 @@ export class TextInput extends MalleableComponent<TextInputProps> {
 
 function Input__( props: TextInputProps & { propName: string } ) {
 	const { label, placeholder, className, maxLength, propName, defaultValue } = props
-	const [ value, setValue ] = useState( defaultValue || '' )
+	const [ value, setValue ] = useState( defaultValue as string || '' )
 
 	return(
 		<div className={`malleable-ui input-text ${ className || '' }`}>

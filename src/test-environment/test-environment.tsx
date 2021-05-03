@@ -4,26 +4,11 @@ import './test-environment.scss'
 import { MalleableComponent, MalleableComponentProps } from '../lib/malleable-component'
 import { TextInput } from '../lib/text-input'
 import { MultiSelect } from '../lib/multi-select'
+import { Checkbox } from '../lib/checkbox'
 
 MalleableComponent.registerComponent('text', () => new TextInput() )
 MalleableComponent.registerComponent('multiselect', () => new MultiSelect() )
-
-// const components = [
-// 	{
-// 		type: 'text',
-// 		name: 'name',
-// 		maxLength: 5,
-// 		label: 'Your name'
-// 	},
-// 	{
-// 		type: 'multiselect',
-// 		name: 'cardinal',
-// 		values: [
-// 			'one', 'two', 'three'
-// 		],
-// 		label: 'Choose a number'
-// 	}
-// ]
+MalleableComponent.registerComponent('boolean', () => new Checkbox() )
 
 const components = {
 	name: {
@@ -38,6 +23,10 @@ const components = {
 			'one', 'two', 'three'
 		],
 		label: 'Choose a number'
+	},
+	truth: {
+		type: 'boolean',
+		label: 'Is it true?'
 	}
 }
 

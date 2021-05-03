@@ -20,7 +20,7 @@ export class MultiSelect extends MalleableComponent<MultiSelectProps> {
 
 function Select__( props: MultiSelectProps & { propName: string } ) {
 	const { label, values, defaultValue, className, propName } = props
-	const [ value, setValue ] = useState( defaultValue || '' )
+	const [ value, setValue ] = useState( defaultValue as string || '' )
 
 	return (
 		<div className={`malleable-ui multi-select ${ className || '' }`}>

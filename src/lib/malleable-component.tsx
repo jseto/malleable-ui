@@ -8,7 +8,7 @@ interface FactoryMap {
 
 export interface MalleableComponentProps {
 	type: string
-	defaultValue?: string
+	defaultValue?: unknown
 	className?: string
 	label?: string
 }

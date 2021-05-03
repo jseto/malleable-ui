@@ -1,21 +1,18 @@
 import { fireEvent, render, RenderResult } from '@testing-library/react'
+import { Checkbox } from './checkbox'
 import { MalleableComponent, registerMalleableComponent } from './malleable-component'
-import { MultiSelect } from './multi-select'
 
-registerMalleableComponent('multiselect', ()=>new MultiSelect())
+registerMalleableComponent('boolean', ()=>new Checkbox())
 
 describe('Multi Select', ()=>{
 	let wrapper: RenderResult
 
 	const config = {
 		test: {
-			type: 'multiselect',
+			type: 'boolean',
 			className: 'css-class',
-			defaultValue: 'val4',
+			defaultValue: true,
 			label: 'test label',
-			values: [
-				'val1', 'val2', 'val3', 'val4', 'val5'
-			]
 		}
 	}
 	
@@ -23,28 +20,31 @@ describe('Multi Select', ()=>{
 		wrapper = render( MalleableComponent.renderInstance( 'test', config.test ) )
 	})
 
-	it('should render a select tag', ()=>{
-		const selectTag = wrapper.getByRole('combobox')
+	it('should render a input tag', ()=>{
+		const inputTag = wrapper.getByRole('checkbox')
 
-		expect( selectTag ).toBeInTheDocument()
-		expect( selectTag.childElementCount ).toBe( 5 )
+		expect( inputTag ).toBeInTheDocument()
 	})
 
 	it('should fill the MalleableComponent response object', ()=>{
-		const selectTag = wrapper.getByRole('combobox')
+		const inputTag = wrapper.getByRole('checkbox')
 
-		fireEvent.change( selectTag, { target: { value: 'val3' } })
-
+		fireEvent.click( inputTag )
 		expect( MalleableComponent.result ).toEqual({
-			test: 'val3'
+			test: false
+		})
+
+		fireEvent.click( inputTag )
+		expect( MalleableComponent.result ).toEqual({
+			test: true
 		})
 	})
 
 	it('should pass props to the underlying element', ()=>{
-		const selectTag = wrapper.getByRole('combobox') as HTMLSelectElement
+		const inputTag = wrapper.getByRole('checkbox') as HTMLInputElement
 		
-		expect( selectTag.parentElement ).toHaveClass( 'css-class' )
-		expect( selectTag ).toHaveValue( 'val4' )
+		expect( inputTag.parentElement ).toHaveClass( 'css-class' )
+		expect( inputTag.value ).toBeTruthy()
 	})
 
 	it('should have a label tag when label is defined', ()=>{
