@@ -6,6 +6,8 @@ registerMalleableComponent('multiselect', ()=>new MultiSelect())
 
 describe('Multi Select', ()=>{
 	let wrapper: RenderResult
+	let selectTag: HTMLSelectElement
+	const onChange = jest.fn()
 
 	const config = {
 		test: {
@@ -20,14 +22,19 @@ describe('Multi Select', ()=>{
 	}
 	
 	beforeEach(()=>{
-		wrapper = render( MalleableComponent.renderInstance( 'test', config.test ) )
+		wrapper = render( MalleableComponent.renderInstance( 'test', config.test, onChange ) )
+		selectTag = wrapper.getByRole('combobox') as HTMLSelectElement
 	})
 
 	it('should render a select tag', ()=>{
-		const selectTag = wrapper.getByRole('combobox')
-
 		expect( selectTag ).toBeInTheDocument()
 		expect( selectTag.childElementCount ).toBe( 5 )
+	})
+
+	it('should notify on changed value', ()=>{
+		fireEvent.change( selectTag, { target: { value: 'val3' } })
+
+		expect( onChange ).toHaveBeenCalledWith( 'test', 'val3' )
 	})
 
 	it('should fill the MalleableComponent response object', ()=>{

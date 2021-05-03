@@ -12,14 +12,18 @@ export class MultiSelect extends MalleableComponent<MultiSelectProps> {
 		return (
 			<Select__ 
 				{...this.elementProps }
-				propName={ this.propName }
+				onChange={ value => this.changed( value ) }
 			/>
 		)
 	}
 }
 
-function Select__( props: MultiSelectProps & { propName: string } ) {
-	const { label, values, defaultValue, className, propName } = props
+interface Select__Props extends MultiSelectProps {
+	onChange: ( value: string ) => void
+}
+
+function Select__( props: Select__Props ) {
+	const { label, values, defaultValue, className, onChange } = props
 	const [ value, setValue ] = useState( defaultValue as string || '' )
 
 	return (
@@ -31,9 +35,7 @@ function Select__( props: MultiSelectProps & { propName: string } ) {
 				value={ value }
 				onChange={ event => {
 					setValue( event.target.value )
-					MalleableComponent.onComponentChange( 
-						propName, event.target.value 
-					)
+					onChange( event.target.value )
 				}}
 			>
 				{

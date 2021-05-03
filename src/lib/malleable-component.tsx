@@ -6,6 +6,8 @@ interface FactoryMap {
 	[ id: string ]: FactoryMethod
 }
 
+type ChangedValue = ( propName: string, value: unknown ) => void
+
 export interface MalleableComponentProps {
 	type: string
 	defaultValue?: unknown
@@ -26,11 +28,12 @@ export abstract class MalleableComponent<P extends MalleableComponentProps> {
 		return this.factoryMap[ typeName ]() as T
 	}
 	
-	static renderInstance( propName: string, elementProps: MalleableComponentProps ): JSX.Element {
+	static renderInstance( propName: string, elementProps: MalleableComponentProps, onChange: ChangedValue ): JSX.Element {
 		const instance = this.createInstance( elementProps.type )
 
-		instance.setElementProps( elementProps )
-		instance.setPropName( propName )
+		instance.elementProps = elementProps
+		instance.propName = propName
+		instance.onChange = onChange
 		
 		return (
 			<div key={ propName }>
@@ -45,18 +48,21 @@ export abstract class MalleableComponent<P extends MalleableComponentProps> {
 	
 	abstract render(): JSX.Element
 
-	protected setElementProps( props: P ) {
-		this.elementProps = props
-	}
+	changed( value: unknown ) {
 
-	protected setPropName( propName: string ) {
-		this.propName = propName
+		if ( this.onChange ) {
+			this.onChange( this.propName, value )
+		}
+
+		MalleableComponent.onComponentChange( this.propName, value )
+
 	}
 
 	private static factoryMap: FactoryMap = {}
 	public static result: MalleableComponentResult = {}
 	protected elementProps: P
 	protected propName: string
+	protected onChange: ChangedValue
 }
 
 

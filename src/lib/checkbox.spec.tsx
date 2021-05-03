@@ -6,6 +6,8 @@ registerMalleableComponent('boolean', ()=>new Checkbox())
 
 describe('Multi Select', ()=>{
 	let wrapper: RenderResult
+	let inputTag: HTMLInputElement
+	const onChange = jest.fn()
 
 	const config = {
 		test: {
@@ -17,13 +19,22 @@ describe('Multi Select', ()=>{
 	}
 	
 	beforeEach(()=>{
-		wrapper = render( MalleableComponent.renderInstance( 'test', config.test ) )
+		wrapper = render( MalleableComponent.renderInstance( 'test', config.test, onChange ) )
+		inputTag = wrapper.getByRole('checkbox') as HTMLInputElement
 	})
 
 	it('should render a input tag', ()=>{
 		const inputTag = wrapper.getByRole('checkbox')
 
 		expect( inputTag ).toBeInTheDocument()
+	})
+
+	it('should notify on changed value', ()=>{
+		fireEvent.click( inputTag )
+		expect( onChange ).toHaveBeenCalledWith( 'test', false )
+
+		fireEvent.click( inputTag )
+		expect( onChange ).toHaveBeenCalledWith( 'test', true )
 	})
 
 	it('should fill the MalleableComponent response object', ()=>{

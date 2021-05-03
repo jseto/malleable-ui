@@ -15,14 +15,18 @@ export class TextInput extends MalleableComponent<TextInputProps> {
 		return(
 				<Input__ 
 					{...this.elementProps }
-					propName={ this.propName }
+					onChange={ value => this.changed( value ) }
 				/>
 		)
 	}
 }
 
-function Input__( props: TextInputProps & { propName: string } ) {
-	const { label, placeholder, className, maxLength, propName, defaultValue } = props
+interface Input__Props extends TextInputProps {
+	onChange: ( value: string ) => void
+}
+
+function Input__( props: Input__Props ) {
+	const { label, placeholder, className, maxLength, defaultValue, onChange } = props
 	const [ value, setValue ] = useState( defaultValue as string || '' )
 
 	return(
@@ -36,9 +40,7 @@ function Input__( props: TextInputProps & { propName: string } ) {
 				value={ value }
 				onChange={ event => {
 					setValue( event.target.value )
-					MalleableComponent.onComponentChange( 
-						propName, event.target.value 
-					)
+					onChange( event.target.value )
 				}}
 			/>
 		</div>

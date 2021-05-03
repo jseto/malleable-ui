@@ -6,6 +6,8 @@ registerMalleableComponent('text', ()=>new TextInput())
 
 describe('Input Text', ()=>{
 	let wrapper: RenderResult
+	let inputTag: HTMLInputElement
+	const onChange = jest.fn()
 
 	const config = {
 		test: {
@@ -19,18 +21,21 @@ describe('Input Text', ()=>{
 	}
 	
 	beforeEach(()=>{
-		wrapper = render( MalleableComponent.renderInstance( 'test', config.test ) )
+		wrapper = render( MalleableComponent.renderInstance( 'test', config.test, onChange ) )
+		inputTag = wrapper.getByRole('textbox') as HTMLInputElement
 	})
 
 	it('should render a input tag', ()=>{
-		const inputTag = wrapper.getByRole('textbox')
-
 		expect( inputTag ).toBeInTheDocument()
 	})
 
-	it('should fill the MalleableComponent response object', ()=>{
-		const inputTag = wrapper.getByRole('textbox')
+	it('should notify on changed value', ()=>{
+		fireEvent.input( inputTag, { target: { value: 'the nicest test' } })
 
+		expect( onChange ).toHaveBeenCalledWith( 'test', 'the nicest test' )
+	})
+
+	it('should fill the MalleableComponent response object', ()=>{
 		fireEvent.input( inputTag, { target: { value: 'a nice test' } })
 
 		expect( MalleableComponent.result ).toEqual({
@@ -39,8 +44,6 @@ describe('Input Text', ()=>{
 	})
 
 	it('should pass props to the underlying element', ()=>{
-		const inputTag = wrapper.getByRole('textbox') as HTMLInputElement
-		
 		expect( inputTag.parentElement ).toHaveClass( 'css-class' )
 		expect( inputTag.maxLength ).toBe( 10 )
 		expect( inputTag ).toHaveAttribute( 'placeholder', 'test placeholder' )
