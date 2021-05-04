@@ -2,10 +2,12 @@ import { fireEvent, render, RenderResult } from '@testing-library/react'
 import React from 'react'
 import { Checkbox } from './checkbox'
 import { MalleableComponent } from './malleable-component'
+import { NumberInput } from './number-input'
 import { StringInput } from './string-input'
 
 new StringInput()
 new Checkbox() 
+new NumberInput()
 
 const components = {
 	name: {
@@ -25,6 +27,15 @@ const components = {
 	truth: {
 		type: 'boolean',
 		label: 'Is it true?'
+	},
+	age: {
+		type: 'number',
+		label: 'age'
+	},
+	odd: {
+		type: 'number',
+		label: 'Select a number',
+		values: [ 1, 2, 3, 5, 7, 9 ]
 	}
 }
 

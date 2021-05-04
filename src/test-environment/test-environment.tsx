@@ -6,9 +6,11 @@ import { StringInput } from '../lib/string-input'
 import { Checkbox } from '../lib/checkbox'
 
 import components from './config.json'
+import { NumberInput } from '../lib/number-input'
 
 MalleableComponent.registerComponent('string', () => new StringInput() )
 MalleableComponent.registerComponent('boolean', () => new Checkbox() )
+MalleableComponent.registerComponent('number', () => new NumberInput() )
 
 export function App() {
 	const result = {}

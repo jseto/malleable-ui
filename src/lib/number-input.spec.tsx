@@ -1,62 +1,60 @@
 import { fireEvent, render, RenderResult } from '@testing-library/react'
 import { MalleableComponent } from './malleable-component'
-import { StringInput } from './string-input'
+import { NumberInput } from './number-input'
 
-new StringInput()
+new NumberInput()
 
 describe('Input String', ()=>{
+
 	describe( 'Unique value', ()=>{
 		let wrapper: RenderResult
 		let inputTag: HTMLInputElement
 		const onChange = jest.fn()
-	
+
 		const config = {
 			test: {
-				type: 'string',
+				type: 'number',
 				placeholder: 'test placeholder',
 				className: 'css-class',
-				maxLength: 10,
-				defaultValue: 'default value',
+				defaultValue: 365,
 				label: 'test label'
 			}
 		}
 		
 		beforeEach(()=>{
 			wrapper = render( MalleableComponent.renderInstance( 'test', config.test, onChange ) )
-			inputTag = wrapper.getByRole('textbox') as HTMLInputElement
+			inputTag = wrapper.getByRole('spinbutton') as HTMLInputElement
 		})
-	
+
 		it('should render a input tag', ()=>{
 			expect( inputTag ).toBeInTheDocument()
 		})
-	
+
 		it('should notify on changed value', ()=>{
-			fireEvent.input( inputTag, { target: { value: 'the nicest test' } })
-	
-			expect( onChange ).toHaveBeenCalledWith( 'test', 'the nicest test' )
-		})
-	
-		it('should fill the MalleableComponent response object', ()=>{
-			fireEvent.input( inputTag, { target: { value: 'a nice test' } })
-	
-			expect( MalleableComponent.result ).toEqual({
-				test: 'a nice test'
-			})
-		})
-	
-		it('should pass props to the underlying element', ()=>{
-			expect( inputTag.parentElement ).toHaveClass( 'css-class' )
-			expect( inputTag.maxLength ).toBe( 10 )
-			expect( inputTag ).toHaveAttribute( 'placeholder', 'test placeholder' )
-			expect( inputTag ).toHaveValue( 'default value' )
-		})
-	
-		it('should have a label tag when label is defined', ()=>{
-			const labelTag = wrapper.getByText('test label')
-	
-			expect( labelTag ).toBeInTheDocument()
+			fireEvent.input( inputTag, { target: { value: 89 } })
+
+			expect( onChange ).toHaveBeenCalledWith( 'test', 89 )
 		})
 
+		it('should fill the MalleableComponent response object', ()=>{
+			fireEvent.input( inputTag, { target: { value: 56 } })
+
+			expect( MalleableComponent.result ).toEqual({
+				test: 56
+			})
+		})
+
+		it('should pass props to the underlying element', ()=>{
+			expect( inputTag.parentElement ).toHaveClass( 'css-class' )
+			expect( inputTag ).toHaveAttribute( 'placeholder', 'test placeholder' )
+			expect( inputTag ).toHaveValue( 365 )
+		})
+
+		it('should have a label tag when label is defined', ()=>{
+			const labelTag = wrapper.getByText('test label')
+
+			expect( labelTag ).toBeInTheDocument()
+		})
 	})
 
 	describe('Multiple choice', ()=>{
@@ -66,11 +64,11 @@ describe('Input String', ()=>{
 	
 		const config = {
 			test: {
-				type: 'string',
+				type: 'number',
 				values: [
-					'val1', 'val2', 'val3', 'val4', 'val5'
+					1, 2, 3, 4, 5
 				],
-				defaultValue: 'val4',
+				defaultValue: 4,
 				label: 'test label'
 			}
 		}
@@ -86,18 +84,18 @@ describe('Input String', ()=>{
 		})
 	
 		it('should notify on changed value', ()=>{
-			fireEvent.change( selectTag, { target: { value: 'val3' } })
+			fireEvent.change( selectTag, { target: { value: 3 } })
 	
-			expect( onChange ).toHaveBeenCalledWith( 'test', 'val3' )
+			expect( onChange ).toHaveBeenCalledWith( 'test', 3 )
 		})
 	
 		it('should fill the MalleableComponent response object', ()=>{
 			const selectTag = wrapper.getByRole('combobox')
 	
-			fireEvent.change( selectTag, { target: { value: 'val3' } })
+			fireEvent.change( selectTag, { target: { value: 3 } })
 	
 			expect( MalleableComponent.result ).toEqual({
-				test: 'val3'
+				test: 3
 			})
 		})
 	
