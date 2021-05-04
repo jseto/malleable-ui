@@ -28,7 +28,7 @@ export abstract class MalleableComponent<P extends MalleableComponentProps> {
 		return this.factoryMap[ typeName ]() as T
 	}
 	
-	static renderInstance( propName: string, elementProps: MalleableComponentProps, onChange: ChangedValue ): JSX.Element {
+	static renderInstance( propName: string, elementProps: MalleableComponentProps, onChange?: ChangedValue ): JSX.Element {
 		const instance = this.createInstance( elementProps.type )
 
 		instance.elementProps = elementProps

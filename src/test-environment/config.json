@@ -1,0 +1,24 @@
+{
+	"name": {
+		"type": "text",
+		"maxLength": 10,
+		"label": "Your name",
+		"className": "css-class"
+	},
+	"cardinal": {
+		"type": "multiselect",
+		"values": [
+			"one", "two", "three"
+		],
+		"label": "Choose a number"
+	},
+	"truth": {
+		"type": "boolean",
+		"label": "Is it true?"
+	},
+	"phone": {
+		"type": "text",
+		"maxLength": 10,
+		"label": "Your phone"
+	}
+}
