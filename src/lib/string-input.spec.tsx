@@ -1,10 +1,10 @@
 import { fireEvent, render, RenderResult } from '@testing-library/react'
 import { MalleableComponent } from './malleable-component'
-import { TextInput } from './text-input'
+import { StringInput } from './string-input'
 
-new TextInput()
+new StringInput()
 
-describe('Input Text', ()=>{
+describe('Input String', ()=>{
 	let wrapper: RenderResult
 	let inputTag: HTMLInputElement
 	const onChange = jest.fn()

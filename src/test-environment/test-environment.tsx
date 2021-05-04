@@ -2,12 +2,12 @@ import React from 'react'
 import TestIcon from '@fortawesome/fontawesome-free/svgs/brands/accessible-icon.svg'
 import './test-environment.scss'
 import { MalleableComponent } from '../lib/malleable-component'
-import { TextInput } from '../lib/text-input'
+import { StringInput } from '../lib/string-input'
 import { Checkbox } from '../lib/checkbox'
 
 import components from './config.json'
 
-MalleableComponent.registerComponent('string', () => new TextInput() )
+MalleableComponent.registerComponent('string', () => new StringInput() )
 MalleableComponent.registerComponent('boolean', () => new Checkbox() )
 
 export function App() {

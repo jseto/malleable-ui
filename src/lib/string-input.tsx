@@ -2,14 +2,14 @@ import React, { useState } from 'react'
 
 import { MalleableComponent, MalleableComponentProps, registerMalleableComponent } from './malleable-component';
 
-interface TextInputProps extends MalleableComponentProps {
+interface StringInputProps extends MalleableComponentProps {
 	maxLength?: number
 	placeholder?: string
 	values?: string[]
 }
 
-@registerMalleableComponent( 'string', ()=>new TextInput() )
-export class TextInput extends MalleableComponent<TextInputProps> {
+@registerMalleableComponent( 'string', ()=>new StringInput() )
+export class StringInput extends MalleableComponent<StringInputProps> {
 
 	render() {
 
@@ -36,7 +36,7 @@ export class TextInput extends MalleableComponent<TextInputProps> {
 	}
 }
 
-interface Input__Props extends TextInputProps {
+interface Input__Props extends StringInputProps {
 	onChange: ( value: string ) => void
 }
 
@@ -63,7 +63,7 @@ function Input__( props: Input__Props ) {
 }
 
 
-interface Select__Props extends TextInputProps {
+interface Select__Props extends StringInputProps {
 	onChange: ( value: string ) => void
 }
 

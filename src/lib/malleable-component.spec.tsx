@@ -2,9 +2,9 @@ import { fireEvent, render, RenderResult } from '@testing-library/react'
 import React from 'react'
 import { Checkbox } from './checkbox'
 import { MalleableComponent } from './malleable-component'
-import { TextInput } from './text-input'
+import { StringInput } from './string-input'
 
-new TextInput()
+new StringInput()
 new Checkbox() 
 
 const components = {
