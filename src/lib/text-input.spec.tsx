@@ -1,8 +1,8 @@
 import { fireEvent, render, RenderResult } from '@testing-library/react'
-import { MalleableComponent, registerMalleableComponent } from './malleable-component'
+import { MalleableComponent } from './malleable-component'
 import { TextInput } from './text-input'
 
-registerMalleableComponent('text', ()=>new TextInput())
+new TextInput()
 
 describe('Input Text', ()=>{
 	let wrapper: RenderResult
@@ -11,7 +11,7 @@ describe('Input Text', ()=>{
 
 	const config = {
 		test: {
-			type: 'text',
+			type: 'string',
 			placeholder: 'test placeholder',
 			className: 'css-class',
 			maxLength: 10,
@@ -54,5 +54,49 @@ describe('Input Text', ()=>{
 		const labelTag = wrapper.getByText('test label')
 
 		expect( labelTag ).toBeInTheDocument()
+	})
+
+	describe('Multiple choice', ()=>{
+		let wrapper: RenderResult
+		let selectTag: HTMLSelectElement
+		const onChange = jest.fn()
+	
+		const config = {
+			test: {
+				type: 'string',
+				values: [
+					'val1', 'val2', 'val3', 'val4', 'val5'
+				],
+				defaultValue: 'val4',
+				label: 'test label'
+			}
+		}
+		
+		beforeEach(()=>{
+			wrapper = render( MalleableComponent.renderInstance( 'test', config.test, onChange ) )
+			selectTag = wrapper.getByRole('combobox') as HTMLSelectElement
+		})
+	
+		it('should render a select tag', ()=>{
+			expect( selectTag ).toBeInTheDocument()
+			expect( selectTag.childElementCount ).toBe( 5 )
+		})
+	
+		it('should notify on changed value', ()=>{
+			fireEvent.change( selectTag, { target: { value: 'val3' } })
+	
+			expect( onChange ).toHaveBeenCalledWith( 'test', 'val3' )
+		})
+	
+		it('should fill the MalleableComponent response object', ()=>{
+			const selectTag = wrapper.getByRole('combobox')
+	
+			fireEvent.change( selectTag, { target: { value: 'val3' } })
+	
+			expect( MalleableComponent.result ).toEqual({
+				test: 'val3'
+			})
+		})
+	
 	})
 })

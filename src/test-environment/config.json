@@ -1,12 +1,12 @@
 {
 	"name": {
-		"type": "text",
+		"type": "string",
 		"maxLength": 10,
 		"label": "Your name",
 		"className": "css-class"
 	},
 	"cardinal": {
-		"type": "multiselect",
+		"type": "string",
 		"values": [
 			"one", "two", "three"
 		],
@@ -17,7 +17,7 @@
 		"label": "Is it true?"
 	},
 	"phone": {
-		"type": "text",
+		"type": "string",
 		"maxLength": 10,
 		"label": "Your phone"
 	}

@@ -5,7 +5,7 @@ import { MalleableComponent, MalleableComponentProps, registerMalleableComponent
 interface CheckboxProps extends MalleableComponentProps {
 }
 
-@registerMalleableComponent( 'text', ()=>new Checkbox() )
+@registerMalleableComponent( 'boolean', ()=>new Checkbox() )
 export class Checkbox extends MalleableComponent<CheckboxProps> {
 
 	render() {
@@ -22,12 +22,13 @@ export class Checkbox extends MalleableComponent<CheckboxProps> {
 interface Input__Props extends CheckboxProps {
 	onChange: ( value: boolean ) => void
 }
+
 function Input__( props: Input__Props ) {
 	const { label, className, defaultValue, onChange } = props
 	const [ checked, setChecked ] = useState( Boolean( defaultValue ) )
 
 	return(
-		<div className={`malleable-ui input-text ${ className || '' }`}>
+		<div className={`malleable-ui checkbox ${ className || '' }`}>
 			{ label && 
 				<label>{ label }</label>
 			}

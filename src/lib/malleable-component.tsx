@@ -25,6 +25,8 @@ export abstract class MalleableComponent<P extends MalleableComponentProps> {
 	}
 
 	static createInstance<T extends MalleableComponent<MalleableComponentProps>>( typeName: string ): T {
+		if ( !this.factoryMap[ typeName ] ) throw new Error( `Type ${ typeName } is not registered in the MalleableComponent factory collection. Please, register it prior to use.` )
+
 		return this.factoryMap[ typeName ]() as T
 	}
 	

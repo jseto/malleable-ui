@@ -3,34 +3,12 @@ import TestIcon from '@fortawesome/fontawesome-free/svgs/brands/accessible-icon.
 import './test-environment.scss'
 import { MalleableComponent } from '../lib/malleable-component'
 import { TextInput } from '../lib/text-input'
-import { MultiSelect } from '../lib/multi-select'
 import { Checkbox } from '../lib/checkbox'
 
 import components from './config.json'
 
-MalleableComponent.registerComponent('text', () => new TextInput() )
-MalleableComponent.registerComponent('multiselect', () => new MultiSelect() )
+MalleableComponent.registerComponent('string', () => new TextInput() )
 MalleableComponent.registerComponent('boolean', () => new Checkbox() )
-
-// const components = {
-// 	name: {
-// 		type: 'text',
-// 		maxLength: 10,
-// 		label: 'Your name',
-// 		className: 'css-class'
-// 	},
-// 	cardinal: {
-// 		type: 'multiselect',
-// 		values: [
-// 			'one', 'two', 'three'
-// 		],
-// 		label: 'Choose a number'
-// 	},
-// 	truth: {
-// 		type: 'boolean',
-// 		label: 'Is it true?'
-// 	}
-// }
 
 export function App() {
 	const result = {}

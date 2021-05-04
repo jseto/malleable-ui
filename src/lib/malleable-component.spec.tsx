@@ -2,23 +2,21 @@ import { fireEvent, render, RenderResult } from '@testing-library/react'
 import React from 'react'
 import { Checkbox } from './checkbox'
 import { MalleableComponent } from './malleable-component'
-import { MultiSelect } from './multi-select'
 import { TextInput } from './text-input'
 
-MalleableComponent.registerComponent('text', () => new TextInput() )
-MalleableComponent.registerComponent('multiselect', () => new MultiSelect() )
-MalleableComponent.registerComponent('boolean', () => new Checkbox() )
+new TextInput()
+new Checkbox() 
 
 const components = {
 	name: {
-		type: 'text',
+		type: 'string',
 		maxLength: 10,
 		label: 'Your name',
 		className: 'css-class',
 		placeholder: 'test placeholder'
 	},
 	cardinal: {
-		type: 'multiselect',
+		type: 'string',
 		values: [
 			'one', 'two', 'three'
 		],
