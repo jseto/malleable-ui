@@ -29,5 +29,16 @@
 		"type": "number",
 		"label": "Select a number",
 		"values": [ 1, 3, 5, 7, 9, 11 ]
+	},
+	"bundle": {
+		"type": "string",
+		"label": "Awesome bundle",
+		"defaultValue": "A nice sunset",
+		"values": [
+			{ "label": "A nice forest", "value": "forest.jpg" },
+			{ "label": "A nice sunset", "value": "sunset.jpg" },
+			{ "label": "An ugly factory", "value": { "img": "factory.jpg", "items": 5 } },
+			{ "label": "A crowd", "value": "people.jpg" }
+		]
 	}
 }
