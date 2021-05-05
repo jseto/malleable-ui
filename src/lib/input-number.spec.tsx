@@ -4,18 +4,18 @@ import { InputTextWrapper } from './input-text'
 
 new InputTextWrapper()
 
-describe('Input String', ()=>{
+describe('Input Number', ()=>{
 	let wrapper: RenderResult
 	let inputTag: HTMLInputElement
 	const onChange = jest.fn()
 
 	const config = {
 		test: {
-			type: 'inputtext',
+			type: 'inputnumber',
 			placeholder: 'test placeholder',
 			className: 'css-class',
 			maxLength: 10,
-			defaultValue: 'default value',
+			defaultValue: 87,
 			label: 'test label'
 		}
 	}
