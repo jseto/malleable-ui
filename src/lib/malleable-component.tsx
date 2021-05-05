@@ -1,75 +1,43 @@
 import React from 'react'
+import { ChangedValue, MalleableComponentProps, MalleableWrapper } from './wrapper'
 
-type FactoryMethod = ()=>MalleableComponent<MalleableComponentProps>
+type WrapperFactory = ()=>MalleableWrapper
 
 interface FactoryMap {
-	[ id: string ]: FactoryMethod
-}
-
-type ChangedValue = ( propName: string, value: unknown ) => void
-
-export interface MalleableComponentProps {
-	type: string
-	defaultValue?: unknown
-	className?: string
-	label?: string
+	[ id: string ]: WrapperFactory
 }
 
 interface MalleableComponentResult {
 	[ propName: string ]: unknown
 }
 
-export abstract class MalleableComponent<P extends MalleableComponentProps> {
-	static registerComponent( typeName: string, factory: FactoryMethod ) {
+export abstract class Malleable {
+	static registerComponent( typeName: string, factory: WrapperFactory ) {
 		this.factoryMap[ typeName ] = factory
 	}
 
-	static createInstance<T extends MalleableComponent<MalleableComponentProps>>( typeName: string ): T {
-		if ( !this.factoryMap[ typeName ] ) throw new Error( `Type ${ typeName } is not registered in the MalleableComponent factory collection. Please, register it prior to use.` )
+	static createInstance<T extends MalleableWrapper>( typeName: string ): T {
+		if ( !this.factoryMap[ typeName ] ) throw new Error( `Malleable component wrapper ${ typeName } is not registered in the MalleableComponent factory collection. Please, register it prior to use.` )
 
 		return this.factoryMap[ typeName ]() as T
 	}
 	
 	static renderInstance( propName: string, elementProps: MalleableComponentProps, onChange?: ChangedValue ): JSX.Element {
 		const instance = this.createInstance( elementProps.type )
-
-		instance.elementProps = elementProps
-		instance.propName = propName
-		instance.onChange = onChange
 		
 		return (
 			<div key={ propName }>
-				{ instance.render() }
+				{ instance.render( propName, elementProps, onChange ) }
 			</div>
 		)
 	}
 
-	static onComponentChange( propName: string, value: unknown ) {
-		this.result[ propName ] = value
-	}
-	
-	abstract render(): JSX.Element
-
-	changed( value: unknown ) {
-
-		if ( this.onChange ) {
-			this.onChange( this.propName, value )
-		}
-
-		MalleableComponent.onComponentChange( this.propName, value )
-
-	}
-
 	private static factoryMap: FactoryMap = {}
-	public static result: MalleableComponentResult = {}
-	protected elementProps: P
-	protected propName: string
-	protected onChange: ChangedValue
 }
 
 
-export function registerMalleableComponent( typeName: string, factory: FactoryMethod ) {
-	MalleableComponent.registerComponent( typeName, factory );
+export function registerMalleableComponent( typeName: string, factory: WrapperFactory ) {
+	Malleable.registerComponent( typeName, factory );
 	return ( constructor: Function )=>{
 		constructor.prototype.__typeName = typeName;
 	}

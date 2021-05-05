@@ -1,18 +1,32 @@
-import React, { useState } from 'react'
-import { InputProps } from './maleable-input'
+import React, { useState } from 'react';
+import { registerMalleableComponent } from './malleable-component';
+import { MalleableComponentProps, MalleableWrapper, ChangedValue, ValueProps } from './wrapper';
 
-interface MalleableSelectProps extends InputProps {
-	onChange: ( value: string ) => void
-	type: string
+interface SelectProps extends MalleableComponentProps  {
+	values?: string[]
 }
 
-export function MalleableSelect( props: MalleableSelectProps ) {
+@registerMalleableComponent( 'select', ()=>new SelectWrapper() )
+export class SelectWrapper extends MalleableWrapper {
+
+	render( propName: string, props: MalleableComponentProps, onChange: ChangedValue) {
+
+		return(
+				<Select 
+					{ ...props }
+					onChange={ value => onChange && onChange( propName, value ) }
+				/>
+		)
+	}
+}
+
+export function Select( props: SelectProps & ValueProps<string>) {
 	const { label, values, defaultValue, className, onChange } = props
 	const defVal = parseValue( values.findIndex( val => parseValue( val ).label === defaultValue as string  ) ).label
 	const [ value, setValue ] = useState( defVal || '' )
 
 	return (
-		<div className={`malleable-ui multi-select ${ className || '' }`}>
+		<div className={`malleable-ui select ${ className || '' }`}>
 			{ label &&
 				<label>{ label }</label>
 			}
@@ -47,6 +61,4 @@ function parseValue( value ) {
 	else {
 		return value
 	}
-
-
 }

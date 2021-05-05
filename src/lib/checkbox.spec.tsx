@@ -1,8 +1,8 @@
 import { fireEvent, render, RenderResult } from '@testing-library/react'
-import { Checkbox } from './checkbox'
-import { MalleableComponent, registerMalleableComponent } from './malleable-component'
+import { CheckboxWrapper } from './checkbox'
+import { Malleable, registerMalleableComponent } from './malleable-component'
 
-registerMalleableComponent('boolean', ()=>new Checkbox())
+registerMalleableComponent('boolean', ()=>new CheckboxWrapper())
 
 describe('Multi Select', ()=>{
 	let wrapper: RenderResult
@@ -11,7 +11,7 @@ describe('Multi Select', ()=>{
 
 	const config = {
 		test: {
-			type: 'boolean',
+			type: 'checkbox',
 			className: 'css-class',
 			defaultValue: true,
 			label: 'test label',
@@ -19,7 +19,7 @@ describe('Multi Select', ()=>{
 	}
 	
 	beforeEach(()=>{
-		wrapper = render( MalleableComponent.renderInstance( 'test', config.test, onChange ) )
+		wrapper = render( Malleable.renderInstance( 'test', config.test, onChange ) )
 		inputTag = wrapper.getByRole('checkbox') as HTMLInputElement
 	})
 
@@ -35,20 +35,9 @@ describe('Multi Select', ()=>{
 
 		fireEvent.click( inputTag )
 		expect( onChange ).toHaveBeenCalledWith( 'test', true )
-	})
-
-	it('should fill the MalleableComponent response object', ()=>{
-		const inputTag = wrapper.getByRole('checkbox')
 
 		fireEvent.click( inputTag )
-		expect( MalleableComponent.result ).toEqual({
-			test: false
-		})
-
-		fireEvent.click( inputTag )
-		expect( MalleableComponent.result ).toEqual({
-			test: true
-		})
+		expect( onChange ).toHaveBeenCalledWith( 'test', false )
 	})
 
 	it('should pass props to the underlying element', ()=>{

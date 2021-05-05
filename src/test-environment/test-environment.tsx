@@ -1,16 +1,16 @@
 import React from 'react'
 import TestIcon from '@fortawesome/fontawesome-free/svgs/brands/accessible-icon.svg'
 import './test-environment.scss'
-import { MalleableComponent } from '../lib/malleable-component'
-import { StringInput } from '../lib/string-input'
-import { Checkbox } from '../lib/checkbox'
+import { Malleable } from '../lib/malleable-component'
+import { CheckboxWrapper } from '../lib/checkbox'
 
 import components from './config.json'
-import { NumberInput } from '../lib/number-input'
+import { InputBoxWrapper } from '../lib/input-box'
+import { SelectWrapper } from '../lib/select'
 
-MalleableComponent.registerComponent('string', () => new StringInput() )
-MalleableComponent.registerComponent('boolean', () => new Checkbox() )
-MalleableComponent.registerComponent('number', () => new NumberInput() )
+new CheckboxWrapper()
+new InputBoxWrapper()
+new SelectWrapper()
 
 export function App() {
 	const result = {}
@@ -25,7 +25,7 @@ export function App() {
 			<TestIcon width="1em"/>
 			{
 				Object.keys( components ).map( 
-					entry => MalleableComponent.renderInstance( entry, components[entry], changed)
+					entry => Malleable.renderInstance( entry, components[entry], changed)
 				)
 			}
 			<button 

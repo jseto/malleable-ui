@@ -1,29 +1,26 @@
 import React, { useState } from 'react'
 
-import { MalleableComponent, MalleableComponentProps, registerMalleableComponent } from './malleable-component';
+import { registerMalleableComponent } from './malleable-component';
+import { ChangedValue, ValueProps, MalleableComponentProps, MalleableWrapper } from './wrapper';
 
-interface CheckboxProps extends MalleableComponentProps {
+interface CheckboxProps extends MalleableComponentProps  {
 }
 
-@registerMalleableComponent( 'boolean', ()=>new Checkbox() )
-export class Checkbox extends MalleableComponent<CheckboxProps> {
+@registerMalleableComponent( 'checkbox', ()=>new CheckboxWrapper() )
+export class CheckboxWrapper extends MalleableWrapper {
 
-	render() {
+	render( propName: string, props: MalleableComponentProps, onChange: ChangedValue) {
 
 		return(
-				<Input__ 
-					{...this.elementProps }
-					onChange={ value => this.changed( value ) }
+				<Checkbox 
+					{ ...props }
+					onChange={ value => onChange && onChange( propName, value ) }
 				/>
 		)
 	}
 }
 
-interface Input__Props extends CheckboxProps {
-	onChange: ( value: boolean ) => void
-}
-
-function Input__( props: Input__Props ) {
+function Checkbox( props: CheckboxProps & ValueProps<boolean>) {
 	const { label, className, defaultValue, onChange } = props
 	const [ checked, setChecked ] = useState( Boolean( defaultValue ) )
 

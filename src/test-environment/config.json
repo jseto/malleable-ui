@@ -1,37 +1,32 @@
 {
 	"name": {
-		"type": "string",
+		"type": "inputbox",
 		"maxLength": 20,
 		"label": "Your name",
 		"className": "css-class"
 	},
 	"cardinal": {
-		"type": "string",
+		"type": "select",
 		"values": [
 			"one", "two", "three"
 		],
 		"label": "Choose a number"
 	},
 	"truth": {
-		"type": "boolean",
+		"type": "checkbox",
 		"label": "Is it true?"
 	},
-	"phone": {
-		"type": "string",
-		"maxLength": 10,
-		"label": "Your phone"
-	},
 	"age": {
-		"type": "number",
+		"type": "inputbox",
 		"label": "Your age"
 	},
 	"odd": {
-		"type": "number",
+		"type": "select",
 		"label": "Select a number",
 		"values": [ 1, 3, 5, 7, 9, 11 ]
 	},
 	"bundle": {
-		"type": "string",
+		"type": "select",
 		"label": "Awesome bundle",
 		"defaultValue": "A nice sunset",
 		"values": [
