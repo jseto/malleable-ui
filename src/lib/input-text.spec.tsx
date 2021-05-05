@@ -1,8 +1,8 @@
 import { fireEvent, render, RenderResult } from '@testing-library/react'
 import { Malleable } from './malleable-component'
-import { InputBoxWrapper } from './input-box'
+import { InputTextWrapper } from './input-text'
 
-new InputBoxWrapper()
+new InputTextWrapper()
 
 describe('Input String', ()=>{
 	describe( 'Unique value', ()=>{
@@ -12,7 +12,7 @@ describe('Input String', ()=>{
 	
 		const config = {
 			test: {
-				type: 'inputbox',
+				type: 'inputtext',
 				placeholder: 'test placeholder',
 				className: 'css-class',
 				maxLength: 10,

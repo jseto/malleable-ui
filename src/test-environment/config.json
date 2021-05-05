@@ -1,6 +1,6 @@
 {
 	"name": {
-		"type": "inputbox",
+		"type": "inputtext",
 		"maxLength": 20,
 		"label": "Your name",
 		"className": "css-class"
@@ -17,7 +17,7 @@
 		"label": "Is it true?"
 	},
 	"age": {
-		"type": "inputbox",
+		"type": "inputtext",
 		"label": "Your age"
 	},
 	"odd": {

@@ -1,17 +1,17 @@
 import { fireEvent, render, RenderResult } from '@testing-library/react'
 import React from 'react'
 import { CheckboxWrapper } from './checkbox'
-import { InputBoxWrapper } from './input-box'
+import { InputTextWrapper } from './input-text'
 import { Malleable } from './malleable-component'
 import { SelectWrapper } from './select'
 
 new CheckboxWrapper()
-new InputBoxWrapper()
+new InputTextWrapper()
 new SelectWrapper()
 
 const components = {
 	name: {
-		type: 'inputbox',
+		type: 'inputtext',
 		maxLength: 10,
 		label: 'Your name',
 		className: 'css-class',
@@ -29,7 +29,7 @@ const components = {
 		label: 'Is it true?'
 	},
 	age: {
-		type: 'inputbox',
+		type: 'inputtext',
 		label: 'age'
 	},
 	odd: {

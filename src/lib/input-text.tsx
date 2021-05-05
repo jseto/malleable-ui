@@ -2,18 +2,18 @@ import React, { useState } from 'react'
 import { registerMalleableComponent } from './malleable-component';
 import { ChangedValue, MalleableComponentProps, MalleableWrapper, ValueProps } from './wrapper';
 
-export interface InputProps extends MalleableComponentProps {
+export interface InputTextProps extends MalleableComponentProps {
 	maxLength?: number
 	placeholder?: string
 }
 
-@registerMalleableComponent( 'inputbox', ()=>new InputBoxWrapper() )
-export class InputBoxWrapper extends MalleableWrapper {
+@registerMalleableComponent( 'inputtext', ()=>new InputTextWrapper() )
+export class InputTextWrapper extends MalleableWrapper {
 
 	render( propName: string, props: MalleableComponentProps, onChange: ChangedValue) {
 
 		return(
-			<Input type="text"
+			<InputText
 					{ ...props }
 					onChange={ value => onChange && onChange( propName, value ) }
 				/>
@@ -21,8 +21,8 @@ export class InputBoxWrapper extends MalleableWrapper {
 	}
 }
 
-function Input( props: InputProps & ValueProps<string> ) {
-	const { type, label, placeholder, className, maxLength, defaultValue, onChange } = props
+function InputText( props: InputTextProps & ValueProps<string> ) {
+	const { label, placeholder, className, maxLength, defaultValue, onChange } = props
 	const [ value, setValue ] = useState( defaultValue as string || '' )
 
 	return(
@@ -30,7 +30,7 @@ function Input( props: InputProps & ValueProps<string> ) {
 			{ label && 
 				<label>{ label }</label>
 			}
-			<input type={ type }
+			<input type="text"
 				placeholder={ placeholder || label || '' }
 				maxLength={ maxLength }
 				value={ value }

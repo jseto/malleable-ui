@@ -22,12 +22,12 @@ export abstract class Malleable {
 		return this.factoryMap[ typeName ]() as T
 	}
 	
-	static renderInstance( propName: string, elementProps: MalleableComponentProps, onChange?: ChangedValue ): JSX.Element {
-		const instance = this.createInstance( elementProps.type )
+	static renderInstance( propName: string, props: MalleableComponentProps, onChange?: ChangedValue ): JSX.Element {
+		const instance = this.createInstance( props.type )
 		
 		return (
 			<div key={ propName }>
-				{ instance.render( propName, elementProps, onChange ) }
+				{ instance.render( propName, props, onChange ) }
 			</div>
 		)
 	}

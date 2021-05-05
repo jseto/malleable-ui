@@ -5,11 +5,11 @@ import { Malleable } from '../lib/malleable-component'
 import { CheckboxWrapper } from '../lib/checkbox'
 
 import components from './config.json'
-import { InputBoxWrapper } from '../lib/input-box'
+import { InputTextWrapper } from '../lib/input-text'
 import { SelectWrapper } from '../lib/select'
 
 new CheckboxWrapper()
-new InputBoxWrapper()
+new InputTextWrapper()
 new SelectWrapper()
 
 export function App() {
