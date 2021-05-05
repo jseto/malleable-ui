@@ -21,7 +21,7 @@ export class InputBoxWrapper extends MalleableWrapper {
 	}
 }
 
-export function Input( props: InputProps & ValueProps<string> ) {
+function Input( props: InputProps & ValueProps<string> ) {
 	const { type, label, placeholder, className, maxLength, defaultValue, onChange } = props
 	const [ value, setValue ] = useState( defaultValue as string || '' )
 

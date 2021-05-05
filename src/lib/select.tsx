@@ -20,7 +20,7 @@ export class SelectWrapper extends MalleableWrapper {
 	}
 }
 
-export function Select( props: SelectProps & ValueProps<string>) {
+function Select( props: SelectProps & ValueProps<string>) {
 	const { label, values, defaultValue, className, onChange } = props
 	const defVal = parseValue( values.findIndex( val => parseValue( val ).label === defaultValue as string  ) ).label
 	const [ value, setValue ] = useState( defVal || '' )
