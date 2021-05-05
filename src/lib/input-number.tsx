@@ -21,7 +21,7 @@ export class InputNumberWrapper extends MalleableWrapper {
 	}
 }
 
-function InputNumber( props: InputNumberProps & ValueProps<string> ) {
+function InputNumber( props: InputNumberProps & ValueProps<number> ) {
 	const { label, placeholder, className, maxLength, defaultValue, onChange } = props
 	const [ value, setValue ] = useState( defaultValue as string || '' )
 
@@ -36,7 +36,7 @@ function InputNumber( props: InputNumberProps & ValueProps<string> ) {
 				value={ value }
 				onChange={ event => {
 					setValue( event.target.value )
-					onChange( event.target.value )
+					onChange( Number( event.target.value ) )
 				}}
 			/>
 		</div>

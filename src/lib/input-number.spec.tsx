@@ -1,8 +1,8 @@
 import { fireEvent, render, RenderResult } from '@testing-library/react'
+import { InputNumberWrapper } from './input-number'
 import { Malleable } from './malleable-component'
-import { InputTextWrapper } from './input-text'
 
-new InputTextWrapper()
+new InputNumberWrapper()
 
 describe('Input Number', ()=>{
 	let wrapper: RenderResult
@@ -14,15 +14,14 @@ describe('Input Number', ()=>{
 			type: 'inputnumber',
 			placeholder: 'test placeholder',
 			className: 'css-class',
-			maxLength: 10,
-			defaultValue: 87,
+			defaultValue: 365,
 			label: 'test label'
 		}
 	}
 	
 	beforeEach(()=>{
 		wrapper = render( Malleable.renderInstance( 'test', config.test, onChange ) )
-		inputTag = wrapper.getByRole('textbox') as HTMLInputElement
+		inputTag = wrapper.getByRole('spinbutton') as HTMLInputElement
 	})
 
 	it('should render a input tag', ()=>{
@@ -30,16 +29,15 @@ describe('Input Number', ()=>{
 	})
 
 	it('should notify on changed value', ()=>{
-		fireEvent.input( inputTag, { target: { value: 'the nicest test' } })
+		fireEvent.input( inputTag, { target: { value: 89 } })
 
-		expect( onChange ).toHaveBeenCalledWith( 'test', 'the nicest test' )
+		expect( onChange ).toHaveBeenCalledWith( 'test', 89 )
 	})
 
 	it('should pass props to the underlying element', ()=>{
 		expect( inputTag.parentElement ).toHaveClass( 'css-class' )
-		expect( inputTag.maxLength ).toBe( 10 )
 		expect( inputTag ).toHaveAttribute( 'placeholder', 'test placeholder' )
-		expect( inputTag ).toHaveValue( 'default value' )
+		expect( inputTag ).toHaveValue( 365 )
 	})
 
 	it('should have a label tag when label is defined', ()=>{
@@ -47,5 +45,5 @@ describe('Input Number', ()=>{
 
 		expect( labelTag ).toBeInTheDocument()
 	})
-
 })
+

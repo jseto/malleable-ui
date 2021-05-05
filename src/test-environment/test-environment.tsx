@@ -7,9 +7,11 @@ import { CheckboxWrapper } from '../lib/checkbox'
 import components from './config.json'
 import { InputTextWrapper } from '../lib/input-text'
 import { SelectWrapper } from '../lib/select'
+import { InputNumberWrapper } from '../lib/input-number'
 
 new CheckboxWrapper()
 new InputTextWrapper()
+new InputNumberWrapper()
 new SelectWrapper()
 
 export function App() {

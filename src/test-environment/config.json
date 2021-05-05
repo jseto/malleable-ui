@@ -17,7 +17,7 @@
 		"label": "Is it true?"
 	},
 	"age": {
-		"type": "inputtext",
+		"type": "inputnumber",
 		"label": "Your age"
 	},
 	"odd": {
