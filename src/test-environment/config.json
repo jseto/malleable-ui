@@ -35,5 +35,16 @@
 			{ "label": "An ugly factory", "value": { "img": "factory.jpg", "items": 5 } },
 			{ "label": "A crowd", "value": "people.jpg" }
 		]
+	},
+	"bundle2": {
+		"type": "select",
+		"label": "Awesome bundle",
+		"defaultValue": "A nice sunset",
+		"values": "get from db"
+	},
+	"debugLevel": {
+		"type": "select",
+		"values": [0,1,2],
+		"label": "debugLevel"
 	}
 }
